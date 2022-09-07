@@ -7,18 +7,28 @@ export const useFetchGifs = (category) => {
     const [gifsList, setGifsList] = useState([]);
     const [isloading, setIsloading] = useState(true);
     
-    useEffect(() => {
-      
-      getGifs(category)
-      .then((newImages)=>{
-        setGifsList(newImages);
-        setIsloading(false);
-      })
+    const getImages = async() => {
+      const newImages = await getGifs( category );
+      setGifsList(newImages);
+      setIsloading(false);
+  }
 
-      // return () => {
-      //   Limpieza de funciones pendientes de los campos
-      // }
-    }, []);
+  useEffect(() => {
+    getImages();
+  }, [])
+  
+    // useEffect(() => {
+      
+    //   getGifs(category)
+    //   .then((newImages)=>{
+    //     setGifsList(newImages);
+    //     setIsloading(false);
+    //   })
+
+    //   // return () => {
+    //   //   Limpieza de funciones pendientes de los campos
+    //   // }
+    // }, []);
 
     return {
         gifsList,
